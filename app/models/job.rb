@@ -1,4 +1,5 @@
 class Job < ApplicationRecord
+
   validates :title, presence: true
   validates :description, presence: true
   validates :wage_upper_bound, presence: true
@@ -14,4 +15,8 @@ class Job < ApplicationRecord
     self.is_hidden = true
     self.save
   end
+
+  scope :published, -> { where(is_hidden: false)}
+  scope :recent, -> { order('created_at DESC')}
+
 end
